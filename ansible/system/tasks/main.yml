@@ -1,0 +1,18 @@
+---
+# System update packages
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade apt packages
+  apt: upgrade=dist
+
+# Directory structure
+- name: Create certificates directory
+  file:
+    path: /data/certs
+    state: directory
+
+- name: Create project directory
+  file:
+    path: /opt/stickyblog
+    state: directory

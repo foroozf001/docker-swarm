@@ -1,0 +1,6 @@
+[web]
+108.128.217.232
+
+[web:vars]
+ansible_connection=ssh
+ansible_port=22

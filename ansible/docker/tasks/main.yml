@@ -1,0 +1,50 @@
+---
+# Install docker engine
+# https://docs.docker.com/engine/install/ubuntu/
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'gnupg', 'lsb-release', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools' ]
+
+- name: Add docker GPG apt key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+
+- name: Add docker repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu {{ vm_distro }} stable
+    state: present
+
+- name: Update apt and install docker-ce
+  apt: update_cache=yes name={{ item }} state=latest
+  loop: [ 'docker-ce', 'docker-ce-cli', 'containerd.io' ]
+
+# Add user to docker group
+- name: Add default user to docker group
+  ansible.builtin.user:
+    name: "{{ vm_user }}"
+    groups: docker
+    append: yes
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html
+- name: Install docker module for Python
+  pip:
+    name: docker
+
+# Docker compose
+- name: Install docker compose for Python
+  pip:
+    name: docker-compose
+
+- name: Download docker-compose
+  get_url:
+    url : https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-Linux-x86_64
+    dest: ~/docker-compose
+    mode: '+x'
+
+- name: Check docker-compose exists 
+  stat: path=~/docker-compose
+  register: docker_compose
+
+- name: Move docker-compose to /usr/local/bin/docker-compose
+  command: mv ~/docker-compose /usr/local/bin/docker-compose
+  when: docker_compose.stat.exists

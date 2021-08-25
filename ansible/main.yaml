@@ -1,0 +1,22 @@
+---
+- name: Roles
+  hosts: all
+  gather_facts: yes
+  become: true
+  roles:
+    - role: system
+      tags: system
+    - role: docker
+      tags: docker
+    - role: web
+      tags: web
+  tasks:
+    - name: System configuration
+      import_role:
+        name: system
+    - name: Docker configuration
+      import_role:
+        name: docker
+    - name: Stickyblog deployment
+      import_role:
+        name: web
