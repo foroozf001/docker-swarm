@@ -1,6 +1,6 @@
 ---
 # Change hostnames
-- name: "update hostnames"
+- name: "Update hostnames"
   hostname:
     name: "{{ hostname }}"
 
@@ -10,6 +10,11 @@
 
 - name: Upgrade apt packages
   apt: upgrade=dist
+
+- name: Install a list of packages
+  apt:
+    pkg:
+    - net-tools
 
 # Directory structure
 - name: Create certificates directory

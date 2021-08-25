@@ -1,7 +1,7 @@
 [swarm]
-34.253.192.230 hostname=swarm01
-34.245.43.248 hostname=swarm02
-52.209.109.33 hostname=swarm03
+34.248.0.199 hostname=swarm01
+34.247.53.117 hostname=swarm02
+46.137.68.88 hostname=swarm03
 
 [swarm:vars]
 ansible_connection=ssh
