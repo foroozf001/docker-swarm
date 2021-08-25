@@ -1,4 +1,9 @@
 ---
+# Change hostnames
+- name: "update hostnames"
+  hostname:
+    name: "{{ hostname }}"
+
 # System update packages
 - name: Update apt cache
   apt: update_cache=yes cache_valid_time=3600
