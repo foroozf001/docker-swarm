@@ -8,8 +8,6 @@
       tags: system
     - role: docker
       tags: docker
-    - role: web
-      tags: web
   tasks:
     - name: System configuration
       import_role:
@@ -17,6 +15,3 @@
     - name: Docker configuration
       import_role:
         name: docker
-    - name: Stickyblog deployment
-      import_role:
-        name: web
