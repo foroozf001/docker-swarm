@@ -1,0 +1,4 @@
+copy something from local to remote:
+scp -i /home/foroozf001/Certs/private.pem /home/foroozf001/Repositories/docker-swarm/docker-compose/docker-compose.yml ubuntu@34.254.183.107:/home/ubuntu
+
+SWMKEY-1-bnmFHmzQXbUDPfQTvRTfgrgpVPTx36gDZAbshRKoF8E
