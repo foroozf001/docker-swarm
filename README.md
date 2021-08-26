@@ -76,5 +76,22 @@ swarm02
 docker node inspect swarm02 --format='{{.Spec.Labels}}'
 ```
 ```sh
-docker service create --name=www --constraint=node.labels.regions=nl-ams --replicas=3 nginx
+docker service create --name=www --constraint=node.labels.regions==nl-ams --replicas=3 nginx
 ``` 
+## Swarm overlay network
+Create encrypted traffic between containers in overlay network; that is across nodes:
+```sh
+docker network create --driver=overlay --opt=encrypted myOverlayNetwork
+```
+```sh
+docker service create --name=bb --network=myOverlayNetwork --replicas=3 -dt busybox
+```
+## Swarm service templates
+```sh
+docker service create --name=myApp --hostname="{{.Node.Hostname}}-{{.Service.Name}}" nginx
+```
+## Swarm recover from losing Quorum
+Run this command from another leader node:
+```sh
+docker swarm init --force-new-cluster
+```
